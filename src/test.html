@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <a class="feed-item" href="https://www.douban.com/note/720246434/">
+    <div class="feed-content">
+      <div class="cover"
+        style="position: relative; background: url(&quot;https://img3.doubanio.com/view/note/l/public/p61460286.jpg&quot;) center center / cover no-repeat rgb(250, 250, 250);">
+        <div style="padding-top: 100%;"></div>
+      </div>
+      <h3>那些你暗恋过的人现在都怎么样了？</h3>
+      <p>“后来我终于知道，他并不是我的花。 我只是恰好途径了它的盛放。” ----安东尼
+        我没想到过了10年之久，还能在异乡遇见阿西，9月的武汉，夏日的炎热丝毫没有褪去，整个城市就像在火炉中一般。我站在财大的梧桐树下，看他上体育课，微风拂过十分凉爽。飘落的树叶，见证了时光的消逝。
+        推开那扇古老的教室门，我与阿西在07年9月2号相识，云南的9月，是凉爽的初秋，我们小学旁边是植物园，渐黄的银杏叶挂在枝头上，在暖黄色的阳光照耀下十分的灿烂。那年刚从农村学校转来这里的我自卑...</p>
+    </div>
+    <div class="author">
+      <!-- react-text: 91 -->by&nbsp;
+      <!-- /react-text --><span class="name">秋子</span></div><span class="feed-label"></span>
+  </a>
+  <script>
+    const filter = (condition, data) => {
+      return data.filter(item => {
+        return Object.keys(condition).every(key => {
+          return String(item[key]).toLowerCase().includes(
+            String(condition[key]).trim().toLowerCase())
+        })
+      })
+    }
+    // 假设选择的条件如下
+    var condition = {
+      userName: '妲己'
+    }
+    filter(condition,
+      data) //[ { key: 1, userId: 2, userName: '妲己',gender: '女',age: 17, tel: 123456789, createTime: '2019-06-16'
+    // }]
+
+  </script>
+</body>
+
+</html>
