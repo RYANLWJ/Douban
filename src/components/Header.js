@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../assets/css/base.css';
 import '../assets/css/main.css';
 import '../assets/css/sign.css';
+import {Link} from 'dva/router'
 // import '../assets/css/test.css';
 
 export default class Header extends React.Component {
@@ -61,8 +62,13 @@ export default class Header extends React.Component {
               </li>
             </ul>
             <div className="navBottom">
-              <div className="nav-item"><a className="toLogin"
-                  href="http://accounts.douban.com/passport/login?redir=https://m.douban.com/">登录豆瓣</a></div>
+              <div className="nav-item"><Link className="toLogin" to={{
+                        pathname: "/sign",
+                        search: "?sort=name",
+                        hash: "#the-hash",
+                        state: { fromDashboard: true }
+                    }}
+               >登录豆瓣</Link></div>
               <div className="nav-item"><a className="toPC" href="/to_pc/?url=https%3A%2F%2Fm.douban.com%2F">使用桌面版</a><a
                   href="https://www.douban.com/doubanapp/dispatch?copy_open=1&amp;from=mdouban&amp;download=1&amp;model=B&amp;copy=1&amp;page=&amp;channel=m_ad_nav&amp;uri=%2F"
                   className="toApp">使用豆瓣App</a></div>

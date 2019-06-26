@@ -1,0 +1,13 @@
+{
+"entry": "/src/index.js",
+  "env": {
+    "development": {
+      "proxy": {
+        "/getfxrate": {
+          "target": "http://m.cmbchina.com/api/rate",
+          "changeOrigin": true,
+        }
+      }
+    }
+  }
+}

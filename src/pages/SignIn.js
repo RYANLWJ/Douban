@@ -1,10 +1,13 @@
 import React from 'react';
 import axios from 'axios';
+// import {withRouter} from 'dva/router'
+import {Link,withRouter} from 'dva/router';
 import $cookie from 'js-cookie';
 const request = require('request'); // 发送短信 验证码用到的module
 const querystring = require('querystring'); //  发送短信验证码用到的module
 
-export default class SignIn extends React.Component {
+
+export default withRouter( class SignIn extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -115,6 +118,7 @@ export default class SignIn extends React.Component {
     };
         /* 提交按钮发送表单 */
         checkInfo() {
+           
             if (this.state.bool) {
                 if (this.state.userPsw == this.state.confirmCode) {
                     console.log('matched')
@@ -127,7 +131,8 @@ export default class SignIn extends React.Component {
                         if (response.data.length) {
                             console.log('已经注册过,登陆成功')
                             $cookie.set(telNum, '');//设置cookie
-                            //   this.toHomepage();
+                            this.props.history.push('/home')//跳转到主页
+                     
     
                         } else {
                             console.log('没有注册过')
@@ -148,7 +153,8 @@ export default class SignIn extends React.Component {
                         if (res.data.length) {
                             console.log('已经注册过,登陆成功')
                             $cookie.set(telNum, '');//设置cookie
-                            //   this.toHomepage();
+                            this.props.history.push('/home')//跳转到主页
+                         
     
                         } else {
                             console.log('没有注册过')
@@ -230,7 +236,14 @@ export default class SignIn extends React.Component {
         return (<div id="account">
             <div className="account-body">
                 <h1 className="account-body-title login-label-phone">
-                    <a href="javascript:;" className="cancel icon login-cancel"></a>
+                    <Link 
+                    to={{
+                        pathname: "/home",
+                        search: "?sort=name",
+                        hash: "#the-hash",
+                        state: { fromDashboard: true }
+                    }}
+                    href="javascript:;" className="cancel icon login-cancel"></Link>
                     <span className="account-body-text">
                         {
                             this.state.bool ? '短信验证登录/注册' : '登录豆瓣'
@@ -245,7 +258,7 @@ export default class SignIn extends React.Component {
                             <div className="account-form-field account-form-field-phone">
                                 <span className="icon clear-input hide"></span>
                                 {
-                                    this.state.bool ? <input type="phone" name="phone" maxLength="13" className="account-form-input" placeholder="手机号" tabindex="1" value={this.state.userNum} onChange={this.handelNumVal.bind(this)} /> : <input id="username" name="username" type="text" className="account-form-input" placeholder="手机号 / 邮箱" value={this.state.userNum} onChange={this.handelNumVal.bind(this)} tabIndex="1" />
+                                    this.state.bool ? <input type="phone" name="phone" maxLength="13" className="account-form-input" placeholder="手机号" tabIndex="1" value={this.state.userNum} onChange={this.handelNumVal.bind(this)} /> : <input id="username" name="username" type="text" className="account-form-input" placeholder="手机号 / 邮箱" value={this.state.userNum} onChange={this.handelNumVal.bind(this)} tabIndex="1" />
                                 }
                                 <div className={this.state.bool ? 'account-form-field-area-code' : 'account-form-field-area-code hide'}>
                                     <div className="account-form-field-area-code-label">+86</div>
@@ -253,7 +266,7 @@ export default class SignIn extends React.Component {
                             </div>
                             <div className="account-form-field">
                                 {
-                                    this.state.bool ? <input type="text" name="code" maxLength="6" className="account-form-input account-form-input-code" placeholder="手机验证码" value={this.state.userPsw} onChange={this.handelCodeVal.bind(this)} tabindex="2" /> : <input id="password" type="password" name="password" className="account-form-input password" placeholder="密码" value={this.state.userPsw} onChange={this.handelCodeVal.bind(this)} tabindex="2" />
+                                    this.state.bool ? <input type="text" name="code" maxLength="6" className="account-form-input account-form-input-code" placeholder="手机验证码" value={this.state.userPsw} onChange={this.handelCodeVal.bind(this)} tabindex="2" /> : <input id="password" type="password" name="password" className="account-form-input password" placeholder="密码" value={this.state.userPsw} onChange={this.handelCodeVal.bind(this)} tabIndex="2" />
                                 }
                                 <div style={this.state.bool ? { display: 'block' } : { display: 'none' }} className="account-form-field-options account-form-field-code">
                                     <a href="javascript:;" style={this.state.ready ? { pointerEvents: 'auto' } : { pointerEvents: 'none' }} onClick={this.getMsgCode.bind(this)}>
@@ -291,19 +304,19 @@ export default class SignIn extends React.Component {
             <script type="text/template" id="tmpl_account">
                 <div className="account-form-field account-form-field-first">
                     <div className="field-account">
-                        <input id="username" name="username" type="text" className="account-form-input" placeholder="手机号 / 邮箱" tabindex="1" />
+                        <input id="username" name="username" type="text" className="account-form-input" placeholder="手机号 / 邮箱" tabIndex="1" />
                         <span className="icon clear-input hide"></span>
                     </div>
                     <div className="account-form-field-phone field-abroad">
                         <span className="icon clear-input hide"></span>
-                        <input type="phone" name="phone" maxlength="13" className="account-form-input" placeholder="手机号" tabindex="1" />
+                        <input type="phone" name="phone" maxlength="13" className="account-form-input" placeholder="手机号" tabIndex="1" />
                         <div className="account-form-field-area-code">
                             <div className="account-form-field-area-code-label">+86</div>
                         </div>
                     </div>
                 </div>
                 <div className="account-form-field">
-                    <input id="password" type="password" name="password" className="account-form-input password" placeholder="密码" tabindex="2" />
+                    <input id="password" type="password" name="password" className="account-form-input password" placeholder="密码" tabIndex="2" />
                     <span className="icon openpwd hide"></span>
                 </div>
             </script>
@@ -324,4 +337,4 @@ export default class SignIn extends React.Component {
         </div>
         )
     }
-}
+})
